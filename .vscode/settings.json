@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stm32u5xx.h": "c",
+        "stm32u575xx.h": "c",
+        "stdint.h": "c"
+    }
+}
