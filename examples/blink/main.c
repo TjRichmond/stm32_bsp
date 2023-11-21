@@ -11,6 +11,7 @@ void main(void)
   clock_init();
   SystemCoreClockUpdate();
 
+  // enable I/O port C clock
   RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
   
   // do two dummy reads after enabling the peripheral clock, as per the errata
@@ -18,6 +19,7 @@ void main(void)
   dummy = RCC->AHB2ENR1;
   dummy = RCC->AHB2ENR1;
 
+  // configure gpio C7 to pull up output mode
   GPIOC->MODER &= ~GPIO_MODER_MODE7_1;
   GPIOC->PUPDR |= GPIO_PUPDR_PUPD7_0;
 
@@ -25,6 +27,7 @@ void main(void)
   
   while(1)
   {
+    // toggle output value every 100ms
     GPIOC->ODR ^= (1 << LED_PIN);
     for (uint32_t i = 0; i < 1000000; i++);
   }
