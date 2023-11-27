@@ -9,10 +9,12 @@ CPPFLAGS=-DSTM32U575xx \
 LINKER_FILE=linker_script.ld
 LDFLAGS=-T $(LINKER_FILE)
 
-BINARY = blink.elf
+BINARY = int_blink.elf
 
-PROGRAMMER = openocd
-PROGRAMMER_FLAGS = -f interface/stlink.cfg -f target/stm32u5x.cfg
+OPENOCD_PROGRAMMER = openocd
+OPENOCD_FLAGS = -f interface/stlink.cfg -f target/stm32u5x.cfg
+
+STM_PROGRAMMER = STM32_Programmer_CLI
 
 all: $(BINARY)
 
@@ -28,10 +30,14 @@ startup.o: startup.c
 system_stm32u5xx.o: $(ROOT_DIR)CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
 
-
-.PHONY: clean
 clean:
 	rm -f *.o *.elf
 
-flash: $(BINARY)
-	$(PROGRAMMER) $(PROGRAMMER_FLAGS) -c "program $(BINARY) verify reset exit"
+openocd_flash: $(BINARY)
+	$(OPENOCD_PROGRAMMER) $(OPENOCD_FLAGS) -c "program $(BINARY) verify reset exit"
+
+stm_flash: $(BINARY)
+	$(STM_PROGRAMMER) -c port=SWD -w $(BINARY) 0x08000000 -s 0x08000000
+
+stm_erase: $(BINARY)
+	$(STM_PROGRAMMER) -c port=SWD -e all

@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include "stm32u5xx.h"
-#include "stm32u5_bsp.h"
 
 #define LED_PIN 7
 
@@ -12,21 +11,23 @@ void main(void)
   clock_init();
   SystemCoreClockUpdate();
 
-  // RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
-  SET_BIT(RCC->AHB2ENR1, RCC_AHB2ENR1_GPIOCEN);
+  // enable I/O port C clock
+  RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
   
   // do two dummy reads after enabling the peripheral clock, as per the errata
   volatile uint32_t dummy;
   dummy = RCC->AHB2ENR1;
   dummy = RCC->AHB2ENR1;
 
-  CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODE7_1);
-  SET_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPD7_0);
+  // configure gpio C7 to pull up output mode
+  GPIOC->MODER &= ~GPIO_MODER_MODE7_1;
+  GPIOC->PUPDR |= GPIO_PUPDR_PUPD7_0;
 
   __enable_irq();
   
   while(1)
   {
+    // toggle output value every 100ms
     GPIOC->ODR ^= (1 << LED_PIN);
     for (uint32_t i = 0; i < 1000000; i++);
   }
@@ -44,7 +45,7 @@ void clock_init()
    * multiplier to 10 gives us 16 MHz * 10 = 160 MHz.
   */
 
-  // Enable HSI osc
+    // Enable HSI osc
   ATOMIC_SET_BIT(RCC->CR, RCC_CR_HSION);
   while(!READ_BIT(RCC->CR, RCC_CR_HSIRDY));
 
