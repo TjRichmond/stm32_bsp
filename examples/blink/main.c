@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "stm32u5xx.h"
+#include "bsp_gpio.h"
 
 #define LED_PIN 7
 

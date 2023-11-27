@@ -1,9 +1,10 @@
-ROOT_DIR=../../
+ROOT_DIR=../..
 CC=arm-none-eabi-gcc
 CFLAGS=-mcpu=cortex-m33 -mthumb -nostdlib -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g
 CPPFLAGS=-DSTM32U575xx \
-				 -I$(ROOT_DIR)CMSIS/Device/ST/STM32U5/Include \
-				 -I$(ROOT_DIR)CMSIS/CMSIS/Core/Include \
+				 -I$(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Include \
+				 -I$(ROOT_DIR)/CMSIS/CMSIS/Core/Include \
+				 -I$(ROOT_DIR)/bsp/include \
 				 -g
 
 LINKER_FILE=linker_script.ld
@@ -18,7 +19,7 @@ STM_PROGRAMMER = STM32_Programmer_CLI
 
 all: $(BINARY)
 
-$(BINARY): main.o startup.o system_stm32u5xx.o
+$(BINARY): main.o startup.o system_stm32u5xx.o bsp_gpio.o
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(BINARY)
 
 main.o: main.c
@@ -27,8 +28,8 @@ main.o: main.c
 startup.o: startup.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) startup.c -c
 
-system_stm32u5xx.o: $(ROOT_DIR)CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
+system_stm32u5xx.o: $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
 
 clean:
 	rm -f *.o *.elf
