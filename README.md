@@ -10,4 +10,5 @@ A future feature to the script could be to accept a parameter to choose which st
 
 # Links
 Boilerplate based on this article: https://kleinembedded.com/stm32-without-cubeide-part-2-cmsis-make-and-clock-configuration/
+
 Google C++ style guide: https://google.github.io/styleguide/cppguide.html
