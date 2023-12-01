@@ -27,10 +27,10 @@
 
 // GPIO pin modes
 typedef enum {
-  INPUT_MODE,
-  OUTPUT_MODE,
-  ALT_FUNC_MODE,
-  ANALOG_MODEs
+  INPUT_MODE = 0,
+  OUTPUT_MODE = 1,
+  ALT_FUNC_MODE = 2,
+  ANALOG_MODE = 3
 } pinMode;
 
 // Toggle pin output
