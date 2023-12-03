@@ -12,25 +12,12 @@ int8_t GpioToggleOutput(GPIO_TypeDef *port, uint8_t pin)
 }
 
 // function for setting gpio pin mode
-void GpioPinMode(GPIO_TypeDef *port, uint8_t pin, pinMode mode)
+int8_t GpioPinMode(GPIO_TypeDef *port, uint8_t pin, PinMode mode)
 {
-  switch (mode)
-  {
-  case INPUT_MODE:
-    break;
+  // Check if pin is outside of bounds of a 32 bit register
+  if (pin > 32) return -1;
 
-  case OUTPUT_MODE:
-    port->MODER &= ~(2 << (pin*2));
-    port->PUPDR |= (1 << (pin*2));
-    break;
-
-  case ALT_FUNC_MODE:
-    break;
-
-  case ANALOG_MODE:
-    break;
-
-  default:
-    break;
-  };
+  // Set mode of pin register
+  port->MODER &= ~(mode << (pin*2));
+  return 0;
 }

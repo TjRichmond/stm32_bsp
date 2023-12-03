@@ -26,17 +26,17 @@
 #include "stm32u575xx.h"
 
 // GPIO pin modes
-typedef enum {
-  INPUT_MODE = 0,
-  OUTPUT_MODE = 1,
-  ALT_FUNC_MODE = 2,
-  ANALOG_MODE = 3
-} pinMode;
+typedef enum pinMode{
+  GPIO_INPUT_MODE = 3,
+  GPIO_OUTPUT_MODE = 2,
+  GPIO_ALT_FUNC_MODE = 1,
+  GPIO_ANALOG_MODE = 0
+} PinMode;
 
 // Toggle pin output
 int8_t GpioToggleOutput(GPIO_TypeDef *, uint8_t);
 
-// TODO: Create set pin mode function w/ enum describing different pin modes
-void GpioPinMode(GPIO_TypeDef *, uint8_t, pinMode);
+// Set pin mode
+int8_t GpioPinMode(GPIO_TypeDef *, uint8_t, PinMode);
 
 #endif

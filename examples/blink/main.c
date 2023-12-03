@@ -22,7 +22,7 @@ void main(void)
   dummy = RCC->AHB2ENR1;
 
   // Configure gpio C7 to pull up output mode
-  GPIOC->MODER &= ~GPIO_MODER_MODE7_1;
+  GpioPinMode(GPIOC, LED_PIN, GPIO_OUTPUT_MODE);
   GPIOC->PUPDR |= GPIO_PUPDR_PUPD7_0;
 
   __enable_irq();
