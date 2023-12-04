@@ -43,3 +43,9 @@ int8_t GpioToggleOutput(GPIO_TypeDef *port, uint8_t pin)
   port->ODR ^= (1 << pin);
   return 0;
 }
+
+// function for setting pull up/down resistor mode
+int8_t GpioSetPullReg(GPIO_TypeDef *port, uint8_t pin, PullMode mode)
+{
+  ;
+}

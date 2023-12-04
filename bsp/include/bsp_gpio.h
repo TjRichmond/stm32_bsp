@@ -35,6 +35,10 @@ typedef enum pinMode{
   GPIO_ANALOG_MODE = 0
 } PinMode;
 
+typedef enum pullMode {
+  TEST = 0
+} PullMode;
+
 // Set pin mode
 int8_t GpioPinMode(GPIO_TypeDef *, uint8_t, PinMode);
 
@@ -46,5 +50,8 @@ int8_t GpioClearOutput(GPIO_TypeDef *, uint8_t);
 
 // Toggle pin output
 int8_t GpioToggleOutput(GPIO_TypeDef *, uint8_t);
+
+// Set pull up/down resistor mode
+int8_t GpioSetPullReg(GPIO_TypeDef *, uint8_t, PullMode);
 
 #endif
