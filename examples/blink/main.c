@@ -9,14 +9,13 @@ void clock_init();
 
 void main(void)
 {
+  // Boiler plate initialization functions
   SystemInit();
   clock_init();
   SystemCoreClockUpdate();
 
   // Initialize GPIO
   GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
-
-  __enable_irq();
   
   while(1)
   {
