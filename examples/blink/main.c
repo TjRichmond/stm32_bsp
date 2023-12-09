@@ -23,7 +23,7 @@ void main(void)
 
   // Configure gpio C7 to pull up output mode
   GpioPinMode(GPIOC, LED_PIN, GPIO_OUTPUT_MODE);
-  GPIOC->PUPDR |= GPIO_PUPDR_PUPD7_0;
+  GpioSetPullReg(GPIOC, LED_PIN, GPIO_PULL_UP);
 
   __enable_irq();
   
