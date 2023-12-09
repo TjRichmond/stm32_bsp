@@ -25,7 +25,7 @@
 
 #include "stm32u575xx.h"
 
-#define MAX_GPIO_PORT_PINS 16
+#define MAX_GPIO_PORT_PINS (16)
 
 // GPIO pin modes
 typedef enum pinMode{
@@ -35,25 +35,29 @@ typedef enum pinMode{
   GPIO_ANALOG_MODE = 0
 } PinMode;
 
+// GPIO pin pull resistor register modes
 typedef enum pullMode {
   GPIO_NO_PULL = 3,
   GPIO_PULL_UP = 2,
   GPIO_PULL_DOWN = 1
 } PullMode;
 
+// Init pin gpio
+uint8_t GpioPinInit(GPIO_TypeDef *, uint8_t , PinMode , PullMode);
+
 // Set pin mode
-int8_t GpioPinMode(GPIO_TypeDef *, uint8_t, PinMode);
+uint8_t GpioPinMode(GPIO_TypeDef *, uint8_t, PinMode);
 
 // Set pin output value
-int8_t GpioSetOutput(GPIO_TypeDef *, uint8_t);
+uint8_t GpioSetOutput(GPIO_TypeDef *, uint8_t);
 
 // Clear pin output value
-int8_t GpioClearOutput(GPIO_TypeDef *, uint8_t);
+uint8_t GpioClearOutput(GPIO_TypeDef *, uint8_t);
 
 // Toggle pin output
-int8_t GpioToggleOutput(GPIO_TypeDef *, uint8_t);
+uint8_t GpioToggleOutput(GPIO_TypeDef *, uint8_t);
 
 // Set pull up/down resistor mode
-int8_t GpioSetPullReg(GPIO_TypeDef *, uint8_t, PullMode);
+uint8_t GpioSetPullReg(GPIO_TypeDef *, uint8_t, PullMode);
 
 #endif

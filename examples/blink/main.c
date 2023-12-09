@@ -13,17 +13,8 @@ void main(void)
   clock_init();
   SystemCoreClockUpdate();
 
-  // Enable I/O port C clock
-  RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
-  
-  // Do two dummy reads after enabling the peripheral clock, as per the errata
-  volatile uint32_t dummy;
-  dummy = RCC->AHB2ENR1;
-  dummy = RCC->AHB2ENR1;
-
-  // Configure gpio C7 to pull up output mode
-  GpioPinMode(GPIOC, LED_PIN, GPIO_OUTPUT_MODE);
-  GpioSetPullReg(GPIOC, LED_PIN, GPIO_PULL_UP);
+  // Initialize GPIO
+  GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
 
   __enable_irq();
   
