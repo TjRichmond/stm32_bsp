@@ -6,6 +6,9 @@ int8_t GpioPinMode(GPIO_TypeDef *port, uint8_t pin, PinMode mode)
   // Check if pin is outside of bounds of a 32 bit register
   if (pin > 32) return -1;
 
+  // Check if mode is out of range
+  if ((mode > GPIO_INPUT_MODE) || (mode < GPIO_ANALOG_MODE)) return -1; 
+
   // Set mode of pin register
   port->MODER &= ~(mode << (pin*2));
   return 0;
@@ -47,5 +50,12 @@ int8_t GpioToggleOutput(GPIO_TypeDef *port, uint8_t pin)
 // function for setting pull up/down resistor mode
 int8_t GpioSetPullReg(GPIO_TypeDef *port, uint8_t pin, PullMode mode)
 {
-  ;
+  // Check if provided pin is outside of maximum possible pins in a port
+  if (pin >= MAX_GPIO_PORT_PINS) return -1;
+
+  // Check if mode is out of range
+  if ((mode > GPIO_NO_PULL) || (mode < GPIO_PULL_DOWN)) return -1; 
+
+  // Assign pull mode to pull register
+  port->PUPDR &= ~(mode << (pin*2));
 }

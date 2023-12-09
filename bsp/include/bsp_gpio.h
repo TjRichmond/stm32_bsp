@@ -36,7 +36,9 @@ typedef enum pinMode{
 } PinMode;
 
 typedef enum pullMode {
-  TEST = 0
+  GPIO_NO_PULL = 3,
+  GPIO_PULL_UP = 2,
+  GPIO_PULL_DOWN = 1
 } PullMode;
 
 // Set pin mode
