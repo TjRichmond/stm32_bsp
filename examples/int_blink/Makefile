@@ -36,8 +36,16 @@ startup.o: startup.c
 system_stm32u5xx.o: $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
 
+bsp_gpio.o: $(ROOT_DIR)/bsp/bsp_gpio.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/bsp/bsp_gpio.c -c
+
+
 clean:
+	rm -f $(OBJFILES) $(TARGET) *~
+
+cleaner:
 	rm -f *.o *.elf
+
 
 openocd_flash: $(TARGET)
 	$(OPENOCD_PROGRAMMER) $(OPENOCD_FLAGS) -c "program $(TARGET) verify reset exit"
