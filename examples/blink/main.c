@@ -79,8 +79,7 @@ void clock_init()
 
   // Clear and Set N multipler
   ATOMIC_CLEAR_BIT(RCC->PLL1DIVR,RCC_PLL1DIVR_PLL1N_Msk);
-  // WRITE_REG(RCC->PLL1DIVR, 19 << RCC_PLL1DIVR_PLL1N_Pos);
-  RCC->PLL1DIVR |= (19 << RCC_PLL1DIVR_PLL1N_Pos);
+  ATOMIC_MODIFY_REG(RCC->PLL1DIVR, 0, 19);
 
   // Set R clk output enable and input freq range
   ATOMIC_SET_BIT(RCC->PLL1CFGR, RCC_PLL1CFGR_PLL1REN);
