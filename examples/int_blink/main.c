@@ -2,6 +2,7 @@
 
 #include "stm32u5xx.h"
 #include "bsp_gpio.h"
+#include "bsp_timer.h"
 
 #define LED_PIN 7
 

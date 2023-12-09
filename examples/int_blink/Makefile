@@ -21,6 +21,7 @@ OBJFILES = 	main.o \
          	startup.o \
 		 	system_stm32u5xx.o \
 		 	bsp_gpio.o \
+			bsp_timer.o
 
 all: $(TARGET)
 
@@ -39,6 +40,8 @@ system_stm32u5xx.o: $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_
 bsp_gpio.o: $(ROOT_DIR)/bsp/bsp_gpio.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/bsp/bsp_gpio.c -c
 
+bsp_timer.o: $(ROOT_DIR)/bsp/bsp_timer.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/bsp/bsp_timer.c -c
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~
