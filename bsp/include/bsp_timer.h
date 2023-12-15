@@ -25,6 +25,24 @@
 
 #include "stm32u575xx.h"
 
-uint8_t TimerInit(TIM_TypeDef *);
+// Timer Enable RCC_APB1ENR1
+// Timer Reset RCC_APB2RSTR
+// Timer Reset RCC_APB1RSTR1
+// Timer Sleep Stop RCC_APB1MENR1
+// Timer Sleep Stop RCC_APB2SMENR
+
+// TIM6/7 Basic Timers ~ x = Timer Number
+// Control Register TIMx_CR1
+// Control Register for mode (Reset, Enable, Update) TIMx_CR2 
+// Prescalar for speed TIMx_PSC
+// Status Register TIMx_SR
+// Update Generation TIMxEGR
+// Auto Reload Register [15:0] TIMx_ARR
+// Counter TIMx_CNT
+// Auto reload register TIMx_ARR
+
+uint8_t TimerBasicInit(TIM_TypeDef *);
+
+uint8_t TimerBasicClkReset(TIM_TypeDef *);
 
 #endif
