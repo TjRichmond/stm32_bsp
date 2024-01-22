@@ -1,6 +1,6 @@
 #include "bsp_timer.h"
 
-uint8_t TimerBasicInitSec(TIM_TypeDef *timer, uint16_t sec)
+uint8_t TimerBasicInitSec(TIM_TypeDef *timer, uint16_t msec)
 {
     // Enable timer 6 RCC
     RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_TIM6EN_Pos);
@@ -8,12 +8,12 @@ uint8_t TimerBasicInitSec(TIM_TypeDef *timer, uint16_t sec)
 
     // Set prescaler to max value 160M
     timer->PSC |= ~(uint16_t)(0);
-    
+
+    // Set counter top value in milliseconds
+    timer->ARR = (uint16_t)(msec);
+
     // Enable overflow interrupts
     timer->DIER |= (TIM_DIER_UIE);
-
-    // Set counter top value in seconds
-    timer->ARR |= (uint16_t)(sec);
 
     // Turn on timer
     timer->CR1 |= TIM_CR1_CEN;

@@ -7,7 +7,9 @@
 
 
 #define LED_PIN 7
-#define BLINK_PERIOD 1
+#define BLINK_PERIOD 1000
+
+uint8_t blink_flag = 0;
 
 void clock_init();
 
@@ -19,18 +21,21 @@ void main(void)
 
   // Initialize GPIO
   GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
+  GpioClearOutput(GPIOC, LED_PIN);
  
   TimerBasicInitSec(TIM6, BLINK_PERIOD);
 
-  __enable_irq();
-
-
+  NVIC_SetPriority(TIM6_IRQn, 1);
+  NVIC_EnableIRQ(TIM6_IRQn);
   
   while(1)
   {
     // toggle output value every 1s
-    GpioToggleOutput(GPIOC, LED_PIN);
-    for (uint32_t i = 0; i < 1000000; i++);
+    if(blink_flag)
+    {
+      GpioToggleOutput(GPIOC, LED_PIN);
+      blink_flag = 0;
+    }
   }
 }
 
@@ -94,3 +99,11 @@ void clock_init()
 }
 
 // ISR
+void tim6_handler(void)
+{
+    if(TIM6->SR & TIM_SR_UIF)
+    {
+      blink_flag = 1;
+      TIM6->SR &= ~(TIM_SR_UIF);
+    }
+}
