@@ -1,10 +1,13 @@
 #include <stdint.h>
 
 #include "stm32u5xx.h"
+#include "stm32u5xx_it.h"
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 
+
 #define LED_PIN 7
+#define BLINK_PERIOD 1
 
 void clock_init();
 
@@ -17,11 +20,15 @@ void main(void)
   // Initialize GPIO
   GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
  
+  TimerBasicInitSec(TIM6, BLINK_PERIOD);
+
   __enable_irq();
+
+
   
   while(1)
   {
-    // toggle output value every 100ms
+    // toggle output value every 1s
     GpioToggleOutput(GPIOC, LED_PIN);
     for (uint32_t i = 0; i < 1000000; i++);
   }
@@ -85,3 +92,5 @@ void clock_init()
   ATOMIC_SET_BIT(RCC->CFGR1, RCC_CFGR1_SW_Msk);
   while((READ_BIT(RCC->CFGR1, RCC_CFGR1_SWS_Msk)) != RCC_CFGR1_SWS_Msk);
 }
+
+// ISR

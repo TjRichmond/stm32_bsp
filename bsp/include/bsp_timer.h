@@ -41,7 +41,7 @@
 // Counter TIMx_CNT
 // Auto reload register TIMx_ARR
 
-uint8_t TimerBasicInit(TIM_TypeDef *);
+uint8_t TimerBasicInitSec(TIM_TypeDef *, uint16_t);
 
 uint8_t TimerBasicClkReset(TIM_TypeDef *);
 

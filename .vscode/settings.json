@@ -3,5 +3,6 @@
         "stm32u5xx.h": "c",
         "stm32u575xx.h": "c",
         "stdint.h": "c"
-    }
+    },
+    "nrf-connect.topdir": "${nrf-connect.sdk:2.5.1}"
 }
