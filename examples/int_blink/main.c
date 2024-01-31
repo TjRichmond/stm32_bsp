@@ -5,9 +5,8 @@
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 
-
-#define LED_PIN 7
-#define BLINK_PERIOD 1000
+#define LED_PIN 7 
+#define BLINK_PULSE 1000
 
 uint8_t blink_flag = 0;
 
@@ -23,7 +22,7 @@ void main(void)
   GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
   GpioClearOutput(GPIOC, LED_PIN);
  
-  TimerBasicInitSec(TIM6, BLINK_PERIOD);
+  TimerBasicInitMilSec(TIM6, BLINK_PULSE);
 
   NVIC_SetPriority(TIM6_IRQn, 1);
   NVIC_EnableIRQ(TIM6_IRQn);
@@ -83,7 +82,7 @@ void clock_init()
 
   // Clear and Set N multipler
   ATOMIC_CLEAR_BIT(RCC->PLL1DIVR,RCC_PLL1DIVR_PLL1N_Msk);
-  ATOMIC_MODIFY_REG(RCC->PLL1DIVR, 0, 19);
+  ATOMIC_MODIFY_REG(RCC->PLL1DIVR, 0, 9);
 
   // Set R clk output enable and input freq range
   ATOMIC_SET_BIT(RCC->PLL1CFGR, RCC_PLL1CFGR_PLL1REN);
