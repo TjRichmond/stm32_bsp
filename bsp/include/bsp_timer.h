@@ -25,7 +25,11 @@
 
 #include "stm32u575xx.h"
 
-uint8_t TimerBasicInitMilSec(TIM_TypeDef *, uint16_t);
+uint8_t TimerBasicInitMicroSec(TIM_TypeDef *, uint16_t);
+
+uint8_t TimerBasicInitMilliSec(TIM_TypeDef *, uint16_t);
+
+uint8_t TimerBasicInitSec(TIM_TypeDef *, uint16_t);
 
 uint8_t TimerBasicClkReset(TIM_TypeDef *);
 

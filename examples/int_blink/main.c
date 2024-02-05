@@ -5,8 +5,8 @@
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 
-#define LED_PIN 7 
-#define BLINK_PULSE 1000
+#define LED_PIN 6 
+#define BLINK_PULSE 1
 
 uint8_t blink_flag = 0;
 
@@ -22,7 +22,7 @@ void main(void)
   GpioPinInit(GPIOC, LED_PIN, GPIO_OUTPUT_MODE, GPIO_PULL_UP);
   GpioClearOutput(GPIOC, LED_PIN);
  
-  TimerBasicInitMilSec(TIM6, BLINK_PULSE);
+  TimerBasicInitSec(TIM6, BLINK_PULSE);
 
   NVIC_SetPriority(TIM6_IRQn, 1);
   NVIC_EnableIRQ(TIM6_IRQn);
