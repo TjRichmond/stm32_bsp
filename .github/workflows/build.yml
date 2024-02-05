@@ -1,0 +1,26 @@
+name: Build STM32 Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up GCC for ARM
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install GCC for ARM
+        run: |
+          sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Build STM32 Project
+        run: |
+          make -C ../../examples/blink
