@@ -22,6 +22,6 @@ jobs:
           sudo apt-get install -y gcc-arm-none-eabi
 
       - name: Build STM32 Project
+        working-directory: examples/blink
         run: |
-          cd ../../examples/blink
-          make
+          make all
