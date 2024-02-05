@@ -1,4 +1,4 @@
-name: Build STM32 Project
+name: Build blink example
 
 on:
   push:
@@ -23,4 +23,5 @@ jobs:
 
       - name: Build STM32 Project
         run: |
-          make -C ../../examples/blink
+          cd ../../examples/blink
+          make
