@@ -1,6 +1,21 @@
+/**
+ * @file bsp_gpio.c
+ * @brief module for controlling mcu gpio hardware 
+ *
+ * This module contains functions to configure and read/write gpio hardware
+ */
 #include "bsp_gpio.h"
 
-// function for configuring all initial settings for a gpio pin
+/**
+ * @brief Initialize a gpio pin configuration
+ * 
+ * The gpio pin will be configured as an input/output and which pull mode
+ * @param port gpio port
+ * @param pin gpio pin
+ * @param pinMode input/output mode
+ * @param pullMode resistor pull up/down mode
+ * @return true/false value to indicate success of function 
+*/
 uint8_t GpioPinInit(GPIO_TypeDef *port, uint8_t pin, PinMode pinMode, \
                 PullMode pullMode)
 {
