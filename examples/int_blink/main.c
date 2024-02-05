@@ -5,7 +5,7 @@
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 
-#define LED_PIN 6 
+#define LED_PIN 7 
 #define BLINK_PULSE 1
 
 uint8_t blink_flag = 0;
