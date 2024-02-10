@@ -20,11 +20,9 @@ jobs:
       - name: Install GCC for ARM
         run: |
           sudo apt-get install -y gcc-arm-none-eabi
-
-      - name: Init git submodule
+      - name: Initialize git submodule
         run: |
           sudo setup.sh
-
       - name: Build STM32 Project
         working-directory: examples/blink
         run: |
