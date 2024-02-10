@@ -22,7 +22,8 @@ jobs:
           sudo apt-get install -y gcc-arm-none-eabi
       - name: Initialize git submodule
         run: |
-          sudo setup.sh
+          chmod +x setup.sh
+          sudo ./setup.sh
       - name: Build STM32 Project
         working-directory: examples/blink
         run: |
