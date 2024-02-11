@@ -3,7 +3,7 @@
  * @brief module for controlling mcu gpio hardware 
  *
  * This module contains functions to configure and read/write gpio hardware
- */
+*/
 #include "bsp_gpio.h"
 
 /**
