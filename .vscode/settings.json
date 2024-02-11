@@ -2,7 +2,8 @@
     "files.associations": {
         "stm32u5xx.h": "c",
         "stm32u575xx.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "bsp_gpio.h": "c"
     },
     "nrf-connect.topdir": "${nrf-connect.sdk:2.5.1}"
 }

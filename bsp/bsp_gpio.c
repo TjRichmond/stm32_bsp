@@ -37,7 +37,15 @@ uint8_t GpioPinInit(GPIO_TypeDef *port, uint8_t pin, PinMode pinMode, \
   return 1;
 }
 
-// function for setting gpio pin mode
+/**
+ * @brief Set the direction mode for a gpio pin 
+ * 
+ * The gpio pin will be configured as an input/output
+ * @param port gpio port
+ * @param pin gpio pin
+ * @param mode input/output mode
+ * @return true/false value to indicate success of function 
+*/
 uint8_t GpioPinMode(GPIO_TypeDef *port, uint8_t pin, PinMode mode)
 {
   // Check if pin is outside of bounds of a 32 bit register
@@ -51,7 +59,15 @@ uint8_t GpioPinMode(GPIO_TypeDef *port, uint8_t pin, PinMode mode)
   return 1;
 }
 
-// function for setting pull up/down resistor mode
+/**
+ * @brief Set the resistor pull direction
+ * 
+ * The gpio pin resistor will be configured to be pull up or pull down
+ * @param port gpio port
+ * @param pin gpio pin
+ * @param mode pull up/down mode
+ * @return true/false value to indicate success of function
+*/
 uint8_t GpioSetPullReg(GPIO_TypeDef *port, uint8_t pin, PullMode mode)
 {
   // Check if provided pin is outside of maximum possible pins in a port
@@ -65,7 +81,14 @@ uint8_t GpioSetPullReg(GPIO_TypeDef *port, uint8_t pin, PullMode mode)
   return 1;
 }
 
-// function for setting gpio pin output value
+/**
+ * @brief Set the output value of the pin to high
+ * 
+ * The gpio pin output value will be set high or 1
+ * @param port gpio port
+ * @param pin gpio pin
+ * @return true/false value to indicate success of function
+*/
 uint8_t GpioSetOutput(GPIO_TypeDef *port, uint8_t pin)
 {
   // Check if provided pin is outside of maximum possible pins in a port
@@ -76,7 +99,14 @@ uint8_t GpioSetOutput(GPIO_TypeDef *port, uint8_t pin)
   return 1;
 }
 
-// function for clearing gpio pin output value
+/**
+ * @brief Set the output value of the pin to low
+ * 
+ * The gpio pin output value will be cleared to low or 0
+ * @param port gpio port
+ * @param pin gpio pin
+ * @return true/false value to indicate success of function
+*/
 uint8_t GpioClearOutput(GPIO_TypeDef *port, uint8_t pin)
 {
   // Check if provided pin is outside of maximum possible pins in a port
@@ -87,7 +117,14 @@ uint8_t GpioClearOutput(GPIO_TypeDef *port, uint8_t pin)
   return 1;
 }
 
-// function for toggling a output data register based on the port and pin
+/**
+ * @brief Toggle the output value of the pin
+ * 
+ * The gpio pin output value will be toggled
+ * @param port gpio port
+ * @param pin gpio pin
+ * @return true/false value to indicate success of function
+*/
 uint8_t GpioToggleOutput(GPIO_TypeDef *port, uint8_t pin)
 {
   // Check if provided pin is outside of maximum possible pins in a port
