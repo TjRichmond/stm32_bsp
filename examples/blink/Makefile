@@ -7,7 +7,13 @@ CPPFLAGS=-DSTM32U575xx \
 				 -I$(ROOT_DIR)/bsp/include \
 				 -g
 
-LINKER_FILE=linker_script.ld
+BSP_DIR=$(ROOT_DIR)/bsp
+BSP_INC_DIR=$(BSP_DIR)/include
+BSP_SRC_DIR=$(BSP_DIR)/src
+
+STARTUP_DIR=$(BSP_DIR)/startup
+
+LINKER_FILE=$(STARTUP_DIR)/linker_script.ld
 LDFLAGS=-T $(LINKER_FILE)
 
 TARGET = blink.elf
@@ -30,14 +36,14 @@ $(TARGET): $(OBJFILES)
 main.o: main.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) main.c -c
 
-startup.o: startup.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) startup.c -c
+startup.o: $(STARTUP_DIR)/startup.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(STARTUP_DIR)/startup.c -c
 
 system_stm32u5xx.o: $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
 
-bsp_gpio.o: $(ROOT_DIR)/bsp/bsp_gpio.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/bsp/bsp_gpio.c -c
+bsp_gpio.o: $(BSP_SRC_DIR)/bsp_gpio.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(BSP_SRC_DIR)/bsp_gpio.c -c
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~

@@ -1,7 +1,6 @@
 #include <stdint.h>
 
 #include "stm32u5xx.h"
-#include "stm32u5xx_it.h"
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 
