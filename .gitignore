@@ -3,3 +3,4 @@
 *.hex
 *.bin
 docs/html/
+*.vscode
