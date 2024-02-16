@@ -4,3 +4,4 @@
 *.bin
 docs/html/
 *.vscode
+obj/

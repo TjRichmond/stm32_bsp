@@ -1,9 +1,7 @@
-name: Build blink example
+name: Build entire repo
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   build:
@@ -31,6 +29,5 @@ jobs:
           sudo ./tools/setup.sh
 
       - name: Build STM32 Project
-        working-directory: examples/blink
         run: |
-          make all
+          make blink 
