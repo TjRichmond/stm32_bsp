@@ -1,11 +1,11 @@
-EXAMPLES = blink int_blink
+EXAMPLES = blink int_blink 
 
 OPENOCD_PROGRAMMER = openocd
 OPENOCD_FLAGS = -f interface/stlink.cfg -f target/stm32u5x.cfg
 
 STM_PROGRAMMER = STM32_Programmer_CLI
 
-PROGRAM ?= blink.elf
+PROGRAM ?= int_blink.elf
 
 .PHONY: all clean $(EXAMPLES)
 
