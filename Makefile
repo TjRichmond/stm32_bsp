@@ -17,6 +17,9 @@ bsp:
 $(EXAMPLES): bsp
 	$(MAKE) -C examples/$@
 
+cleaner: clean
+	rm -rf examples/obj
+
 clean:
 	for examples in $(EXAMPLES); do \
 		$(MAKE) -C examples/$$examples clean; \
