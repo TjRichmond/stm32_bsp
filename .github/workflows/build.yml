@@ -2,8 +2,6 @@ name: Build blink example
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   build:
