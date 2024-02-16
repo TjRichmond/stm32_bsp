@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 /**
- * @file bsp_gpio.h
+ * @file bsp_gpio.c
  * @brief Module for using gpio pins
  * 
  * This module contains functions to control gpio pins hardware for
@@ -45,15 +45,15 @@ uint8_t GpioPinInit(GPIO_TypeDef *port, uint8_t pin, PinMode pinMode, \
                 PullMode pullMode)
 {
     // Enable peripheral clock for the provided pin
-    if(port == GPIOA) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOAEN_Pos);
-    else if(port == GPIOB) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOBEN_Pos);
-    else if(port == GPIOC) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
-    else if(port == GPIOD) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIODEN_Pos);
-    else if(port == GPIOE) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOEEN_Pos);
-    else if(port == GPIOF) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOFEN_Pos);
-    else if(port == GPIOG) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOGEN_Pos);
-    else if(port == GPIOH) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOHEN_Pos);
-    else if(port == GPIOI) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOIEN_Pos);
+    if(port == (GPIO_TypeDef *)GPIOA) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOAEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOB) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOBEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOC) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOD) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIODEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOE) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOEEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOF) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOFEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOG) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOGEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOH) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOHEN_Pos);
+    else if(port == (GPIO_TypeDef *)GPIOI) RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOIEN_Pos);
 
   // Set the pin direction and pull resistor mode
   if(!GpioPinMode(port, pin, pinMode)) return 0;
