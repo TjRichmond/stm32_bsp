@@ -1,7 +1,13 @@
-name: Build blink example
+name: Build entire repo
 
 on:
   push:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+      - production
 
 jobs:
   build:

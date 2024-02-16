@@ -1,66 +1,54 @@
-ROOT_DIR=../..
-CC=arm-none-eabi-gcc
-CFLAGS=-mcpu=cortex-m33 -mthumb -nostdlib -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g
-CPPFLAGS=-DSTM32U575xx \
-				 -I$(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Include \
-				 -I$(ROOT_DIR)/CMSIS/CMSIS/Core/Include \
-				 -I$(ROOT_DIR)/bsp/include \
-				 -g
+EXAMPLE_NAME=int_blink
 
-BSP_DIR=$(ROOT_DIR)/bsp
-BSP_INC_DIR=$(BSP_DIR)/include
-BSP_SRC_DIR=$(BSP_DIR)/src
+TARGET_DIR = ../obj
+TARGET = $(TARGET_DIR)/$(EXAMPLE_NAME).elf
 
-STARTUP_DIR=$(BSP_DIR)/startup
+BSP_DIR = ../../bsp
+BSP_LIB = $(BSP_DIR)/libstm32_bsp.a
 
+STARTUP_DIR = $(BSP_DIR)/startup
 LINKER_FILE=$(STARTUP_DIR)/linker_script.ld
-LDFLAGS=-T $(LINKER_FILE)
+LDFLAGS=-T$(LINKER_FILE)
 
-TARGET = int_blink.elf
+SRC_DIR = src
+OBJ_DIR = obj
 
-OPENOCD_PROGRAMMER = openocd
-OPENOCD_FLAGS = -f interface/stlink.cfg -f target/stm32u5x.cfg
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c) $(STARTUP_DIR)/startup.c $(CMSIS_DEVICE_FILE).c
+OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
-STM_PROGRAMMER = STM32_Programmer_CLI
+CMSIS_DEVICE_FILE = ../../CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx
 
-OBJFILES = 	main.o \
-         	startup.o \
-		 	system_stm32u5xx.o \
-		 	bsp_gpio.o \
-			bsp_timer.o
+CC = arm-none-eabi-gcc
+CFLAGS = -mcpu=cortex-m33 -mthumb -nostdlib -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g
+CPPFLAGS =-DSTM32U575xx \
+				 	-I../../CMSIS/Device/ST/STM32U5/Include \
+				 	-I../../CMSIS/CMSIS/Core/Include \
+					-I$(BSP_DIR)/include \
+				 	-g
 
-all: $(TARGET)
+all: $(OBJ_DIR) $(TARGET) $(OBJ_DIR)/startup.o $(OBJ_DIR)/system_stm32u5xx.o
 
-$(TARGET): $(OBJFILES)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(TARGET)
+$(TARGET): $(OBJ_FILES) $(BSP_LIB) | $(TARGET_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -L$(BSP_DIR) -lstm32_bsp $^ -o $@ 
 
-main.o: main.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) main.c -c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-startup.o: $(STARTUP_DIR)/startup.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(STARTUP_DIR)/startup.c -c
+$(OBJ_DIR)/startup.o: $(STARTUP_DIR)/startup.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-system_stm32u5xx.o: $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(ROOT_DIR)/CMSIS/Device/ST/STM32U5/Source/Templates/system_stm32u5xx.c -c
+$(OBJ_DIR)/system_stm32u5xx.o: $(CMSIS_DEVICE_FILE).c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-bsp_gpio.o: $(BSP_SRC_DIR)/bsp_gpio.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(BSP_SRC_DIR)/bsp_gpio.c -c
+$(OBJ_DIR):
+	mkdir -p $@
 
-bsp_timer.o: $(BSP_SRC_DIR)/bsp_timer.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(BSP_SRC_DIR)/bsp_timer.c -c
+$(TARGET_DIR):
+	mkdir -p $@
+
+$(BSP_LIB):
+	$(MAKE) -C $(BSP_DIR)
 
 clean:
-	rm -f $(OBJFILES) $(TARGET) *~
-
-cleaner:
-	rm -f *.o *.elf
-
-
-openocd_flash: $(TARGET)
-	$(OPENOCD_PROGRAMMER) $(OPENOCD_FLAGS) -c "program $(TARGET) verify reset exit"
-
-stm_flash: $(TARGET)
-	$(STM_PROGRAMMER) -c port=SWD -w $(TARGET) 0x08000000 -s 0x08000000
-
-stm_erase: $(TARGET)
-	$(STM_PROGRAMMER) -c port=SWD -e all
+	rm -rf $(OBJ_DIR) $(TARGET)
+	$(MAKE) -C $(BSP_DIR) clean
