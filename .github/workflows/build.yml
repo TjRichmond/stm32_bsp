@@ -36,4 +36,4 @@ jobs:
 
       - name: Build STM32 Project
         run: |
-          make all
+          make blink 
