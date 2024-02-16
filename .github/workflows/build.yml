@@ -27,8 +27,8 @@ jobs:
 
       - name: Add STM32U5 Device Library to CMSIS
         run: |
-          chmod +x setup.sh
-          sudo ./setup.sh
+          chmod +x tools/setup.sh
+          sudo ./tools/setup.sh
 
       - name: Build STM32 Project
         working-directory: examples/blink
