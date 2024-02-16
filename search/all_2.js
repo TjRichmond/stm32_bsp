@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['timerbasicclkreset_8',['TimerBasicClkReset',['../dc/d09/bsp__timer_8c.html#a61bd3c165154719a6d91b64b68e77b1d',1,'bsp_timer.c']]],
-  ['timerbasicinitmicrosec_9',['TimerBasicInitMicroSec',['../dc/d09/bsp__timer_8c.html#a0c110658ed69fef827f5167e50e42a3f',1,'bsp_timer.c']]],
-  ['timerbasicinitmillisec_10',['TimerBasicInitMilliSec',['../dc/d09/bsp__timer_8c.html#a838c23505cce2bd818ca5c7d2d8de173',1,'bsp_timer.c']]],
-  ['timerbasicinitsec_11',['TimerBasicInitSec',['../dc/d09/bsp__timer_8c.html#a40e95060289b57f712577af2d1834ebb',1,'bsp_timer.c']]]
+  ['pinmode_16',['pinMode',['../d2/de2/bsp__gpio_8h.html#ad8184dcca14e0b62b8dcb68f0fee981c',1,'bsp_gpio.h']]],
+  ['pinmode_17',['PinMode',['../d2/de2/bsp__gpio_8h.html#adf9d7967473ea9162d275d90a44f2865',1,'bsp_gpio.h']]],
+  ['pullmode_18',['PullMode',['../d2/de2/bsp__gpio_8h.html#a6d8588781901ec7cb45f23128d51ea7f',1,'bsp_gpio.h']]],
+  ['pullmode_19',['pullMode',['../d2/de2/bsp__gpio_8h.html#a3600849abf3deb06b12706d858563176',1,'bsp_gpio.h']]]
 ];

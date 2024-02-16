@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STM32 BSP: bsp/src/bsp_timer.c File Reference</title>
+<title>STM32 BSP: bsp/include/bsp_timer.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -61,42 +61,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_3c5459f7c179b79c90e2565474bb2856.html">bsp</a></li><li class="navelem"><a class="el" href="../../dir_8232267b6f950bf95f0ee9cacfb085b4.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_3c5459f7c179b79c90e2565474bb2856.html">bsp</a></li><li class="navelem"><a class="el" href="../../dir_d508ab988f48ac6bc640519b976b2f7b.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bsp_timer.c File Reference</div>  </div>
+<div class="title">bsp_timer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Module for controlling mcu basic timer hardware.  
+<p>Module for using basic hardware timer.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d1/d09/bsp__timer_8h_source.html">bsp_timer.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+<div class="textblock"><code>#include &quot;stm32u575xx.h&quot;</code><br />
+</div>
+<p><a href="../../d1/d09/bsp__timer_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0c110658ed69fef827f5167e50e42a3f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d09/bsp__timer_8c.html#a0c110658ed69fef827f5167e50e42a3f">TimerBasicInitMicroSec</a> (TIM_TypeDef *timer, uint16_t usec)</td></tr>
-<tr class="memdesc:a0c110658ed69fef827f5167e50e42a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic microsecond timer.  <a href="../../dc/d09/bsp__timer_8c.html#a0c110658ed69fef827f5167e50e42a3f">More...</a><br /></td></tr>
-<tr class="separator:a0c110658ed69fef827f5167e50e42a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a838c23505cce2bd818ca5c7d2d8de173"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d09/bsp__timer_8c.html#a838c23505cce2bd818ca5c7d2d8de173">TimerBasicInitMilliSec</a> (TIM_TypeDef *timer, uint16_t msec)</td></tr>
-<tr class="memdesc:a838c23505cce2bd818ca5c7d2d8de173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic millisecond timer.  <a href="../../dc/d09/bsp__timer_8c.html#a838c23505cce2bd818ca5c7d2d8de173">More...</a><br /></td></tr>
-<tr class="separator:a838c23505cce2bd818ca5c7d2d8de173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40e95060289b57f712577af2d1834ebb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d09/bsp__timer_8c.html#a40e95060289b57f712577af2d1834ebb">TimerBasicInitSec</a> (TIM_TypeDef *timer, uint16_t sec)</td></tr>
-<tr class="memdesc:a40e95060289b57f712577af2d1834ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic second timer.  <a href="../../dc/d09/bsp__timer_8c.html#a40e95060289b57f712577af2d1834ebb">More...</a><br /></td></tr>
-<tr class="separator:a40e95060289b57f712577af2d1834ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61bd3c165154719a6d91b64b68e77b1d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d09/bsp__timer_8c.html#a61bd3c165154719a6d91b64b68e77b1d">TimerBasicClkReset</a> (TIM_TypeDef *timer)</td></tr>
-<tr class="memdesc:a61bd3c165154719a6d91b64b68e77b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a basic timer.  <a href="../../dc/d09/bsp__timer_8c.html#a61bd3c165154719a6d91b64b68e77b1d">More...</a><br /></td></tr>
-<tr class="separator:a61bd3c165154719a6d91b64b68e77b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9edf5c6b9f8ce1af533d7d40de991c4c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d09/bsp__timer_8h.html#a9edf5c6b9f8ce1af533d7d40de991c4c">TimerBasicInitMicroSec</a> (TIM_TypeDef *, uint16_t)</td></tr>
+<tr class="memdesc:a9edf5c6b9f8ce1af533d7d40de991c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic microsecond timer.  <a href="../../d1/d09/bsp__timer_8h.html#a9edf5c6b9f8ce1af533d7d40de991c4c">More...</a><br /></td></tr>
+<tr class="separator:a9edf5c6b9f8ce1af533d7d40de991c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e605356a9f895b40c6fcf7d2ba4cadd"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d09/bsp__timer_8h.html#a8e605356a9f895b40c6fcf7d2ba4cadd">TimerBasicInitMilliSec</a> (TIM_TypeDef *, uint16_t)</td></tr>
+<tr class="memdesc:a8e605356a9f895b40c6fcf7d2ba4cadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic millisecond timer.  <a href="../../d1/d09/bsp__timer_8h.html#a8e605356a9f895b40c6fcf7d2ba4cadd">More...</a><br /></td></tr>
+<tr class="separator:a8e605356a9f895b40c6fcf7d2ba4cadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b8d39d7303f928a8f9b9429f719c18"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d09/bsp__timer_8h.html#a81b8d39d7303f928a8f9b9429f719c18">TimerBasicInitSec</a> (TIM_TypeDef *, uint16_t)</td></tr>
+<tr class="memdesc:a81b8d39d7303f928a8f9b9429f719c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a basic second timer.  <a href="../../d1/d09/bsp__timer_8h.html#a81b8d39d7303f928a8f9b9429f719c18">More...</a><br /></td></tr>
+<tr class="separator:a81b8d39d7303f928a8f9b9429f719c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6739a9a437e75dfd9cb3e4c1a8beb96d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d09/bsp__timer_8h.html#a6739a9a437e75dfd9cb3e4c1a8beb96d">TimerBasicClkReset</a> (TIM_TypeDef *)</td></tr>
+<tr class="memdesc:a6739a9a437e75dfd9cb3e4c1a8beb96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a basic timer.  <a href="../../d1/d09/bsp__timer_8h.html#a6739a9a437e75dfd9cb3e4c1a8beb96d">More...</a><br /></td></tr>
+<tr class="separator:a6739a9a437e75dfd9cb3e4c1a8beb96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Module for controlling mcu basic timer hardware. </p>
-<p>This module contains functions to control 1 of 2 basic hardware timers for the STM32U575. These functions include initializing and reseting the timers. </p>
+<div class="textblock"><p>Module for using basic hardware timer. </p>
+<p>This header contains functions to control 1 of 2 basic hardware timers for the STM32U575. These functions include initializing and reseting the timers. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a61bd3c165154719a6d91b64b68e77b1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61bd3c165154719a6d91b64b68e77b1d">&#9670;&nbsp;</a></span>TimerBasicClkReset()</h2>
+<a id="a6739a9a437e75dfd9cb3e4c1a8beb96d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6739a9a437e75dfd9cb3e4c1a8beb96d">&#9670;&nbsp;</a></span>TimerBasicClkReset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,8 +124,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0c110658ed69fef827f5167e50e42a3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c110658ed69fef827f5167e50e42a3f">&#9670;&nbsp;</a></span>TimerBasicInitMicroSec()</h2>
+<a id="a9edf5c6b9f8ce1af533d7d40de991c4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9edf5c6b9f8ce1af533d7d40de991c4c">&#9670;&nbsp;</a></span>TimerBasicInitMicroSec()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,8 +162,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a838c23505cce2bd818ca5c7d2d8de173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a838c23505cce2bd818ca5c7d2d8de173">&#9670;&nbsp;</a></span>TimerBasicInitMilliSec()</h2>
+<a id="a8e605356a9f895b40c6fcf7d2ba4cadd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e605356a9f895b40c6fcf7d2ba4cadd">&#9670;&nbsp;</a></span>TimerBasicInitMilliSec()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +200,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a40e95060289b57f712577af2d1834ebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40e95060289b57f712577af2d1834ebb">&#9670;&nbsp;</a></span>TimerBasicInitSec()</h2>
+<a id="a81b8d39d7303f928a8f9b9429f719c18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b8d39d7303f928a8f9b9429f719c18">&#9670;&nbsp;</a></span>TimerBasicInitSec()</h2>
 
 <div class="memitem">
 <div class="memproto">
