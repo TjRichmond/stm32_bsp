@@ -1,0 +1,44 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CMSIS Submodule
+        run: |
+          git submodule update --init --recursive
+      
+      - name: Set up GCC for ARM
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install GCC for ARM
+        run: |
+          sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Add STM32U5 Device Library to CMSIS
+        run: |
+          chmod +x tools/setup.sh
+          sudo ./tools/setup.sh
+      
+      - name: Build entire repository
+        run: |
+          make all
+
+      # - name: Run unit tests
+      #   run: |
+      #     cppunit
