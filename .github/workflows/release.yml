@@ -1,19 +1,22 @@
-name: Build entire repo
+name: Release
 
 on:
   push:
+    branches:
+      - production
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Initialize Submodule
+
+      - name: Initialize CMSIS Submodule
         run: |
           git submodule update --init --recursive
-
+      
       - name: Set up GCC for ARM
         uses: actions/setup-python@v5
         with:
@@ -28,6 +31,12 @@ jobs:
           chmod +x tools/setup.sh
           sudo ./tools/setup.sh
 
-      - name: Build STM32 Project
+      - name: Bump version and generate changelog
         run: |
-          make blink 
+          bumpversion --current-version $(git tag -l --sort=-committerdate | head -n 1 | sed 's/v//') patch
+      
+      - name: Tag the release
+        run: git tag -a v${{ steps.version.outputs.new_version }} -m "Release v${{ steps.version.outputs.new_version }}"
+
+      - name: Push tags
+        run: git push origin --tags
