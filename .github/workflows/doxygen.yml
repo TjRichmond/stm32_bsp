@@ -1,7 +1,7 @@
 name: Doxygen
 
 on:
-  push: 
+  pull_request:
     branches:
       - production
 
@@ -30,8 +30,7 @@ jobs:
     needs: build
     permissions:
       contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      pages: write
 
     steps:
       - name: Checkout code
@@ -45,7 +44,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/production'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/html
