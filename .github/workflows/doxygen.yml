@@ -29,9 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -44,8 +43,8 @@ jobs:
           path: ./docs/html
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/production'
+        uses: actions/deploy-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
+          branch: gh-pages
+          folder: ./docs/html
