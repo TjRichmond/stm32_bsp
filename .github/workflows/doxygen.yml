@@ -2,10 +2,10 @@ name: Doxygen
 
 on:
   pull_request: 
-    types:
-      - closed
     branches:
       - staging
+    types:
+      - closed
 
 jobs:
   build:
