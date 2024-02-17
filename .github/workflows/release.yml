@@ -31,12 +31,12 @@ jobs:
           chmod +x tools/setup.sh
           sudo ./tools/setup.sh
 
-      - name: Bump version and generate changelog
-        run: |
-          bumpversion --current-version $(git tag -l --sort=-committerdate | head -n 1 | sed 's/v//') patch
+      # - name: Bump version and generate changelog
+      #   run: |
+      #     bumpversion --current-version $(git tag -l --sort=-committerdate | head -n 1 | sed 's/v//') patch
       
-      - name: Tag the release
-        run: git tag -a v${{ steps.version.outputs.new_version }} -m "Release v${{ steps.version.outputs.new_version }}"
+      # - name: Tag the release
+      #   run: git tag -a v${{ steps.version.outputs.new_version }} -m "Release v${{ steps.version.outputs.new_version }}"
 
-      - name: Push tags
-        run: git push origin --tags
+      # - name: Push tags
+      #   run: git push origin --tags
