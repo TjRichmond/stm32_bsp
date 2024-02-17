@@ -48,5 +48,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: ./docs/html
+          artifact_name: doxygen-docs
