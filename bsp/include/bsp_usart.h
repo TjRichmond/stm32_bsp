@@ -106,4 +106,15 @@ typedef enum baudRate{
 */
 uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, StopBits stopBits);
 
+
+/**
+ * @brief Send tx
+ * 
+ * The usart will send data on its tx line
+ * @param usart usart
+ * @param dataTX outgoing data buff
+ * @return true/false value to indicate success of function
+*/
+uint8_t UsartSend(USART_TypeDef *usart, uint8_t *dataTX);
+
 #endif
