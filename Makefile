@@ -1,4 +1,4 @@
-EXAMPLES = blink int_blink
+EXAMPLES = blink int_blink usart
 
 OPENOCD_PROGRAMMER = openocd
 OPENOCD_FLAGS = -f interface/stlink.cfg -f target/stm32u5x.cfg

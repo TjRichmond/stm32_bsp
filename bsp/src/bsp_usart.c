@@ -56,7 +56,30 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
   // Configure baud rate
   usart->BRR = baudRate;
 
-
   // Turn on usart
   usart->CR1 |= (USART_CR1_UE);
+}
+
+/**
+ * @brief Send tx
+ * 
+ * The usart will send data on its tx line
+ * @param usart usart
+ * @param dataTX outgoing data buff
+ * @return true/false value to indicate success of function
+*/
+uint8_t UsartSend(USART_TypeDef *usart, uint8_t *dataTX)
+{
+  // Enable TX bit before sending buff
+  usart->CR1 |= (1 << USART_CR1_TE_Pos);
+
+  // Write buffer to TX register
+  usart->TDR = (*dataTX & USART_TDR_TDR);
+
+  // Wait until transmission is complete
+  while(!(usart->ISR & (USART_ISR_TC)));
+
+  // Cleanup bits after sending data
+  usart->ICR |= (USART_ICR_TCCF);
+  usart->CR1 &= ~(1 << USART_CR1_TE_Pos);
 }
