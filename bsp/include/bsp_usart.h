@@ -97,7 +97,8 @@ typedef enum baudRate{
 /**
  * @brief Initialize usart 
  * 
- * The uart will be initialized 
+ * The usart hardware and necessary gpio pins will be configured to support
+ * the desired usart configuration.
  * @param usart usart
  * @param baudRate baud rate
  * @param dataBits number of data bits
@@ -115,6 +116,6 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
  * @param dataTX outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSend(USART_TypeDef *usart, uint8_t *dataTX);
+uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX);
 
 #endif

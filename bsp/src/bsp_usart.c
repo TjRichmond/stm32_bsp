@@ -33,7 +33,8 @@
 /**
  * @brief Initialize usart 
  * 
- * The uart will be initialized 
+ * The usart hardware and necessary gpio pins will be configured to support
+ * the desired usart configuration.
  * @param usart usart
  * @param baudRate baud rate
  * @param dataBits number of data bits
@@ -42,12 +43,64 @@
 */
 uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, StopBits stopBits)
 {
-  // Turn on peripheral clock
-  if(usart == (USART_TypeDef *)USART1) RCC->APB2ENR |= (1 << RCC_APB2ENR_USART1EN_Pos);
-  else if(usart == (USART_TypeDef *)USART2) RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_USART2EN_Pos);
-  else if(usart == (USART_TypeDef *)USART3) RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_USART3EN_Pos);
-  else if(usart == (USART_TypeDef *)UART4) RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_UART4EN_Pos);
-  else if(usart == (USART_TypeDef *)UART5) RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_UART5EN_Pos);
+  // Turn on usart/pin clock on and set tx/rx pins to alternative function mode
+  if(usart == (USART_TypeDef *)USART1)
+  {
+    // Enable usart1/gpioa clocks
+    RCC->APB2ENR  |= (1 << RCC_APB2ENR_USART1EN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOAEN_Pos);
+    GPIOA->MODER  &= ~(GPIO_MODER_MODE9_0 | GPIO_MODER_MODE10_0);
+
+    // Set PA9 to TX and PA10 to RX
+    GPIOA->AFR[1] |= (7 << GPIO_AFRH_AFSEL9_Pos);
+    GPIOA->AFR[1] |= (7 << GPIO_AFRH_AFSEL10_Pos);
+  } 
+  else if(usart == (USART_TypeDef *)USART2)
+  {
+    // Enable usart2/gpiod clocks
+    RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_USART2EN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIODEN_Pos);
+    GPIOD->MODER  &= ~(GPIO_MODER_MODE5_0 | GPIO_MODER_MODE6_0);
+
+    // Set PD5 to TX and PD6 to RX
+    GPIOD->AFR[0] |= (7 << GPIO_AFRL_AFSEL5_Pos);
+    GPIOD->AFR[0] |= (7 << GPIO_AFRL_AFSEL6_Pos);
+  }
+  else if(usart == (USART_TypeDef *)USART3)
+  {
+    // Enable usart3/gpiob clocks
+    RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_USART3EN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOBEN_Pos);
+    GPIOB->MODER &= ~(GPIO_MODER_MODE10_0 | GPIO_MODER_MODE11_0);
+
+    // Set PB10 to TX and PB11 to RX
+    GPIOB->AFR[1] |= (7 << GPIO_AFRH_AFSEL10_Pos);
+    GPIOB->AFR[1] |= (7 << GPIO_AFRH_AFSEL11_Pos);
+  }
+  else if(usart == (USART_TypeDef *)UART4)
+  {
+    // Enable uart4/gpioa clocks
+    RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_UART4EN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOAEN_Pos);
+    GPIOA->MODER &= ~(GPIO_MODER_MODE0_0 | GPIO_MODER_MODE1_0);
+
+    // Set PA0 to TX and PA1 to RX
+    GPIOA->AFR[1] |= (8 << GPIO_AFRL_AFSEL0_Pos);
+    GPIOA->AFR[1] |= (8 << GPIO_AFRL_AFSEL1_Pos);
+  }
+  else if(usart == (USART_TypeDef *)UART5)
+  {
+    // Enable uart5/gpioc/gpiod clocks
+    RCC->APB1ENR1 |= (1 << RCC_APB1ENR1_UART5EN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIOCEN_Pos);
+    RCC->AHB2ENR1 |= (1 << RCC_AHB2ENR1_GPIODEN_Pos);
+    GPIOC->MODER &= ~(GPIO_MODER_MODE12_0);
+    GPIOD->MODER &= ~(GPIO_MODER_MODE2_0);
+
+    // Set PC12 to TX and PD2 to RX
+    GPIOC->AFR[1] |= (8 << GPIO_AFRH_AFSEL12_Pos);
+    GPIOD->AFR[1] |= (8 << GPIO_AFRL_AFSEL2_Pos);
+  }
 
   // Configure usart message format
   usart->CR1 |= (dataBits & USART_CR1_M_Msk);
@@ -63,17 +116,19 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
 /**
  * @brief Send tx
  * 
- * The usart will send data on its tx line
+ * The usart will send char on its tx line
  * @param usart usart
  * @param dataTX outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSend(USART_TypeDef *usart, uint8_t *dataTX)
+uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX)
 {
   // Enable TX bit before sending buff
   usart->CR1 |= (1 << USART_CR1_TE_Pos);
 
-  // Write buffer to TX register
+  while (!(usart->ISR & USART_ISR_TXE));
+
+  // Write char to TX register
   usart->TDR = (*dataTX & USART_TDR_TDR);
 
   // Wait until transmission is complete
