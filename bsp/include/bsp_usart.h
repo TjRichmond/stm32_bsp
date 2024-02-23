@@ -118,4 +118,15 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
 */
 uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX);
 
+/**
+ * @brief Send tx buf
+ * 
+ * The usart will send buf on its tx line
+ * @param usart usart
+ * @param dataTX outgoing data buff
+ * @param dataLen size of outgoing data buff
+ * @return true/false value to indicate success of function
+*/
+uint8_t UsartSendBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen);
+
 #endif
