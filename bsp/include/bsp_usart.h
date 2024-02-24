@@ -116,7 +116,7 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
  * @param dataTX outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX);
+uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX);
 
 /**
  * @brief Send tx buf
@@ -127,6 +127,16 @@ uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX);
  * @param dataLen size of outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSendBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen);
+uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen);
+
+/**
+ * @brief Receive char 
+ * 
+ * The usart will receive char on its rx line
+ * @param usart usart
+ * @param dataRX incoming char 
+ * @return true/false value to indicate success of function
+*/
+uint8_t UsartRxChar(USART_TypeDef *usart, uint8_t *dataRX);
 
 #endif

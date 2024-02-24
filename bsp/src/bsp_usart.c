@@ -109,6 +109,9 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
   // Configure baud rate
   usart->BRR = baudRate;
 
+  // Enable receive hardware 
+  usart->CR1 |= (USART_CR1_RE);
+
   // Turn on usart
   usart->CR1 |= (USART_CR1_UE);
 
@@ -123,7 +126,7 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
  * @param dataTX outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX)
+uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX)
 {
   // Enable TX bit before sending buff
   usart->CR1 |= (1 << USART_CR1_TE_Pos);
@@ -152,7 +155,7 @@ uint8_t UsartSendChar(USART_TypeDef *usart, uint8_t *dataTX)
  * @param dataLen size of outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartSendBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen)
+uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen)
 {
   // Enable TX bit before sending buff
   usart->CR1 |= (1 << USART_CR1_TE_Pos);
@@ -172,6 +175,25 @@ uint8_t UsartSendBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen)
 
   usart->ICR |= (USART_ICR_TCCF);
   usart->CR1 &= ~(1 << USART_CR1_TE_Pos);
+
+  return 1;
+}
+
+/**
+ * @brief Receive char 
+ * 
+ * The usart will receive char on its rx line
+ * @param usart usart
+ * @param dataRX incoming char 
+ * @return true/false value to indicate success of function
+*/
+uint8_t UsartRxChar(USART_TypeDef *usart, uint8_t *dataRX)
+{
+  // Wait until all data has been shifted into RDR
+  while(!(usart->ISR & USART_ISR_RXNE));
+
+  // Transfer char in RDR into accessible variable
+  *dataRX = (uint8_t)(usart->RDR & USART_RDR_RDR);
 
   return 1;
 }
