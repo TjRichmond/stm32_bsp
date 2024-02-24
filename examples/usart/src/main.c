@@ -20,15 +20,15 @@ void main(void)
   
   UsartInit(USART2, USART_9600_BAUD, USART_8DATA_BITS, USART_1STOP_BITS);
 
-  uint8_t data_buf = 0x00;
+  uint8_t data_buf[] = {0,1,2,3,4};
     
   while(1)
   {
     // Toggle led and send the inverse of the received byte
     GpioToggleOutput(GPIOC, LED_PIN);
-    UsartRxChar(USART2, &data_buf);
-    data_buf = ~data_buf;
-    UsartTxChar(USART2, &data_buf);
+    // UsartRxChar(USART2, &data_buf);
+    // data_buf = ~data_buf;
+    UsartTxBuf(USART2, data_buf, 5);
   }
 }
 

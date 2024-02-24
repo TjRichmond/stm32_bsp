@@ -127,7 +127,7 @@ uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX);
  * @param dataLen size of outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen);
+uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint32_t dataLen);
 
 /**
  * @brief Receive char 

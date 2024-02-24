@@ -109,20 +109,20 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
   // Configure baud rate
   usart->BRR = baudRate;
 
-  // Enable receive hardware 
-  usart->CR1 |= (USART_CR1_RE);
+  // Enable TX and RX 
+  usart->CR1 |= (USART_CR1_RE) | (1 << USART_CR1_TE_Pos);
 
-  // Turn on usart
+  // Turn on USART 
   usart->CR1 |= (USART_CR1_UE);
 
   return 1;
 }
 
 /**
- * @brief Send tx
+ * @brief Send TX 
  * 
- * The usart will send char on its tx line
- * @param usart usart
+ * The USART will send char on its TX line
+ * @param usart USART 
  * @param dataTX outgoing data buff
  * @return true/false value to indicate success of function
 */
@@ -147,19 +147,16 @@ uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX)
 }
 
 /**
- * @brief Send tx buf
+ * @brief Send TX buf
  * 
- * The usart will send buf on its tx line
- * @param usart usart
+ * The USART will send buf on its tx line
+ * @param usart USART 
  * @param dataTX outgoing data buff
  * @param dataLen size of outgoing data buff
  * @return true/false value to indicate success of function
 */
-uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen)
+uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint32_t dataLen)
 {
-  // Enable TX bit before sending buff
-  usart->CR1 |= (1 << USART_CR1_TE_Pos);
-
   // Loop through all data bytes
   uint8_t dataCount;
   for(dataCount = 0; dataCount < dataLen; dataCount++)
@@ -167,14 +164,12 @@ uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint8_t dataLen)
     while (!(usart->ISR & USART_ISR_TXE));
 
     // Write char to TX register
-    usart->TDR = (*(dataTX + sizeof(dataTX)*dataCount)& USART_TDR_TDR);
-
-    // Wait until transmission is complete
-    while(!(usart->ISR & (USART_ISR_TC)));
+    usart->TDR = dataTX[dataCount];
   }
 
-  usart->ICR |= (USART_ICR_TCCF);
-  usart->CR1 &= ~(1 << USART_CR1_TE_Pos);
+  // Wait until transmission is complete
+  while(!(usart->ISR & (USART_ISR_TC)));
+  // usart->ICR |= (USART_ICR_TCCF);
 
   return 1;
 }
