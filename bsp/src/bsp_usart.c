@@ -128,9 +128,7 @@ uint8_t UsartInit(USART_TypeDef *usart, BaudRate baudRate, DataBits dataBits, St
 */
 uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX)
 {
-  // Enable TX bit before sending buff
-  usart->CR1 |= (1 << USART_CR1_TE_Pos);
-
+  // Wait until data register is empty
   while (!(usart->ISR & USART_ISR_TXE));
 
   // Write char to TX register
@@ -138,10 +136,6 @@ uint8_t UsartTxChar(USART_TypeDef *usart, uint8_t *dataTX)
 
   // Wait until transmission is complete
   while(!(usart->ISR & (USART_ISR_TC)));
-
-  // Cleanup bits after sending data
-  usart->ICR |= (USART_ICR_TCCF);
-  usart->CR1 &= ~(1 << USART_CR1_TE_Pos);
 
   return 1;
 }
@@ -161,6 +155,7 @@ uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint32_t dataLen)
   uint8_t dataCount;
   for(dataCount = 0; dataCount < dataLen; dataCount++)
   {
+    // Wait until data register is empty
     while (!(usart->ISR & USART_ISR_TXE));
 
     // Write char to TX register
@@ -169,7 +164,6 @@ uint8_t UsartTxBuf(USART_TypeDef *usart, uint8_t *dataTX, uint32_t dataLen)
 
   // Wait until transmission is complete
   while(!(usart->ISR & (USART_ISR_TC)));
-  // usart->ICR |= (USART_ICR_TCCF);
 
   return 1;
 }

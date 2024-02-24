@@ -5,6 +5,7 @@
 #include "bsp_gpio.h"
 
 #define LED_PIN (7)
+#define BUF_SIZE (3)
 
 void clock_init();
 
@@ -20,15 +21,22 @@ void main(void)
   
   UsartInit(USART2, USART_9600_BAUD, USART_8DATA_BITS, USART_1STOP_BITS);
 
-  uint8_t data_buf[] = {0,1,2,3,4};
+  uint8_t dataBuf[BUF_SIZE];
     
   while(1)
   {
-    // Toggle led and send the inverse of the received byte
+    // Receive bytes in buffer until null terminator or hit max buf size
+    uint32_t dataCount = 0;
+    while(dataCount < BUF_SIZE)
+    {
+      UsartRxChar(USART2, &dataBuf[dataCount]);
+      dataCount++;
+      // if(dataBuf[dataCount-1] == '\0') break;
+    }
+
+    // Send received buffer and toggle LED
+    UsartTxBuf(USART2, &dataBuf, dataCount);
     GpioToggleOutput(GPIOC, LED_PIN);
-    // UsartRxChar(USART2, &data_buf);
-    // data_buf = ~data_buf;
-    UsartTxBuf(USART2, data_buf, 5);
   }
 }
 
