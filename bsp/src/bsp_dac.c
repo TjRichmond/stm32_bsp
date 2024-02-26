@@ -35,4 +35,7 @@
  * @param dac DAC 
  * @return true/false value to indicate success of function 
 */
-DacInit(DAC_TypeDef *dac);
+DacInit(DAC_TypeDef *dac)
+{
+
+}
